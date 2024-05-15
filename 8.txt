@@ -1,0 +1,66 @@
+Ex. 8: Write a program to traverse syntax trees and perform action arithmetic operations
+
+Procedure:
+Input: Syntax tree T representing an arithmetic expression
+1. Define a recursive function Traverse(node), where node is a node in the syntax tree:
+a. If node is a leaf node containing a number:
+i. Return the value of the number.
+b. If node is an interior node representing an operator:
+i. Let leftValue = Traverse(leftChild), where leftChild is the left child of node.
+ii. Let rightValue = Traverse(rightChild), where rightChild is the right child of node.
+iii. Perform the arithmetic operation indicated by the operator stored in node, using
+leftValue and rightValue.
+iv. Return the result of the operation.
+2. Call Traverse(root), where root is the root node of the syntax tree.
+
+Sample Code
+
+class TreeNode {
+String value;
+TreeNode left;
+TreeNode right;
+TreeNode(String value) {
+this.value = value;
+this.left = null;
+this.right = null;
+}
+}
+public class SyntaxTreeTraversal {
+public static int traverseAndCalculate(TreeNode node) {
+if (node == null) {
+return 0;
+}
+30
+if (node.left == null && node.right == null) {
+return Integer.parseInt(node.value);
+}
+int leftValue = traverseAndCalculate(node.left);
+int rightValue = traverseAndCalculate(node.right);
+switch (node.value) {
+case "+":
+return leftValue + rightValue;
+case "-":
+return leftValue - rightValue;
+case "*":
+return leftValue * rightValue;
+case "/":
+if (rightValue == 0) {
+throw new ArithmeticException("Division by zero");
+}
+return leftValue / rightValue;
+default:
+throw new IllegalArgumentException("Invalid operator: " + node.value);
+}
+}
+public static void main(String[] args) {
+// Example syntax tree: 3 + (5 * 2)
+TreeNode root = new TreeNode("+");
+root.left = new TreeNode("3");
+root.right = new TreeNode("*");
+root.right.left = new TreeNode("5");
+root.right.right = new TreeNode("2");
+// Perform traversal and calculation
+int result = traverseAndCalculate(root);
+System.out.println("Result: " + result);
+}
+}
