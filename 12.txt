@@ -1,0 +1,45 @@
+Ex. 12: Write a program to generate machine code for an indexed assignment statement
+
+Procedure:
+
+Step 1: create a byte array to store the machine code
+Step 2: set the opcode for the MIPS instruction in the byte array
+Step 3: set the source register in the byte array
+Step 4: set the base register in the byte array
+Step 5: set the offset in the byte array
+Step 6: write the machine code to a file
+
+Sample Code:
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+public class GenerateMachineCodeIndexedAssignment {
+public static void main(String[] args) throws IOException {
+// Create a byte array to store the machine code
+byte[] machineCode = new byte[6];
+// Set the opcode for the MIPS instruction in the byte array
+machineCode[0] = (byte) 0x2b;
+// Set the source register in the byte array
+machineCode[1] = (byte) 0x04;
+// Set the base register in the byte array
+machineCode[2] = (byte) 0x00;
+// Set the offset in the byte array
+machineCode[3] = (byte) 0x00;
+machineCode[4] = (byte) 0x00;
+machineCode[5] = (byte) 0x18;
+// Write the machine code to a file
+try (FileOutputStream fos = new FileOutputStream("machine_code.bin")) {
+fos.write(machineCode);
+} catch (IOException e) {
+e.printStackTrace();
+}
+}
+}
+
+Explanation:
+The first 6 bits (101011) are the opcode for the sw instruction.
+The next 5 bits (00000) are the source register ($v0).
+The next 5 bits (01000) are the base register ($a0).
+The next 16 bits (0000000000000100) are the offset (4).
+Assembly Statement: sw $v0, 4($a0)
+Machine Statement: 10101101000001000000000000011000
