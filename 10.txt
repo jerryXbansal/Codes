@@ -39,3 +39,9 @@ syscall
 li $v0, 10 # syscall code for exit
 syscall
 Output: 15
+
+How To Run:
+• Open MARS MIPS Simulator.
+• Click "File" -> "Open" and select your MIPS assembly file.
+• Click "Assemble" to assemble the file.
+• Click "Run" to execute the program.
